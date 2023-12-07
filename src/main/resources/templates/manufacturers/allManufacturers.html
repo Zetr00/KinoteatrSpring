@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Студии</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .add-button, .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .add-button:hover, .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${manufacturers}" class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div th:case="*">
+                <h2 class="my-5 text-center">Студии</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Год основания</th>
+                        <th>Страна</th>
+                        <th>Изменение</th>
+                        <th>Удаление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="manufacturer : ${manufacturers}">
+                        <td th:text="${manufacturer.name_manufacturer}"></td>
+                        <td th:text="${manufacturer.year_manufacturer}"></td>
+                        <td th:text="${manufacturer.country != null ? manufacturer.country.name_country : ''}"></td>
+                        <td>
+                            <a th:href="@{/manufacturers/editManufacturer/{id}(id=${manufacturer.id_manufacturer})}" class="edit-button">Изменить</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/manufacturers/deleteManufacturer/{id}(id=${manufacturer.id_manufacturer})}" class="delete-button">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5 text-center">
+                <a href="/manufacturers/addManufacturer" class="add-button">Добавить студию</a>
+            </p>
+            <p class="my-5 text-center">
+                <a href="/" class="back-button">Назад</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

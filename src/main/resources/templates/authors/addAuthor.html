@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Добавление режиссера</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: #ff0000;
+        }
+
+        .submit-button {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .submit-button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2>Добавление режиссера</h2>
+    <div class="container">
+        <form action="/authors/addAuthor" th:object="${author}" method="post">
+            <div class="form-group">
+                <label for="name_author">Имя режиссера</label>
+                <input type="text" th:field="*{name_author}" id="name_author" placeholder="Имя режиссера">
+                <span class="error-message" th:if="${#fields.hasErrors('name_author')}" th:errors="*{name_author}"></span>
+            </div>
+            <div>
+                <input type="submit" class="submit-button" value="Создать автора">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Изменение ролей</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      display: block;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: #555;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    select {
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 8px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    .footer-logo img {
+      width: 60px;
+      height: auto;
+    }
+
+    .footer-links ul {
+      display: flex;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-right: 20px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/login">Выйти из аккаунта</a></li>
+    </ul>
+  </nav>
+</header>
+
+<h1>Изменение ролей</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Пользователь</th>
+    <th>Роль</th>
+    <th>Изменение</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.username}"></td>
+    <td>
+      <ul>
+        <h5 th:each="role : ${user.roles}" th:text="${role}"></h5>
+      </ul>
+    </td>
+    <td>
+      <form method="post" th:action="@{/edit-access/{userId}/edit(userId=${user.ID_User})}">
+        <select name="roles">
+          <option value="USER">Пользователь</option>
+          <option value="ADMIN">Администратор</option>
+          <option value="MODERATOR">Кассир</option>
+        </select>
+        <button type="submit">Изменить роль</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

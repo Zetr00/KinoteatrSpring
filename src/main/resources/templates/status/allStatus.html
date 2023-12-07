@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Статусы</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .edit-button, .delete-button, .add-button, .back-button {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 10px;
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .edit-button:hover, .delete-button:hover, .add-button:hover, .back-button:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .my-5 {
+            margin-bottom: 5rem !important;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${status}" class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div th:case="*">
+                <h2 class="my-5 text-center">Статусы</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Изменение</th>
+                        <th>Удаление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="status : ${status}">
+                        <td th:text="${status.name_status}"></td>
+                        <td>
+                            <a th:href="@{/status/editStatus/{id}(id=${status.id_status})}" class="edit-button">Изменить</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/status/deleteStatus/{id}(id=${status.id_status})}" class="delete-button">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5 text-center">
+                <a href="/status/addStatus" class="add-button">Добавить статус</a>
+            </p>
+            <p class="my-5 text-center">
+                <a href="/" class="back-button">Назад</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

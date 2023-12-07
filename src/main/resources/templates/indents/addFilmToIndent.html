@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Добавить фильм к заказу</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Добавить фильм к заказу</h1>
+<form th:action="${'/indents/addFilmToIndent'}" method="post">
+    <label>
+        <select name="film">
+            <option value="">Выберите фильм</option>
+            <th:block th:each="element : ${film}">
+                <option th:text="${element.name_film}" th:value="${element.name_film}"></option>
+            </th:block>
+        </select>
+    </label>
+    <label>
+        <select name="indent">
+            <option value="">Выберите заказ</option>
+            <th:block th:each="element : ${indent}">
+                <option th:text="${element.id_indent}" th:value="${element.id_indent}"></option>
+            </th:block>
+        </select>
+    </label>
+    <br>
+    <div>
+        <button type="submit">Добавить фильм к заказу</button>
+    </div>
+</form>
+<a href="/indents">Вернуться к заказам</a>
+</body>
+</html>

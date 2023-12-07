@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Фильмы</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .edit-button, .delete-button, .add-button, .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .edit-button, .delete-button {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .edit-button:hover, .delete-button:hover {
+            background-color: #333;
+        }
+
+        .add-button, .back-button {
+            background-color: #fff;
+            color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+        }
+
+        .add-button:hover, .back-button:hover {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${films}" >
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div th:case="*" class="table-container">
+                <h2 class="my-5 text-center">Фильмы</h2>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Год выпуска</th>
+                        <th scope="col">Время фильма</th>
+                        <th scope="col">Рейтинг</th>
+                        <th scope="col">Жанр</th>
+                        <th scope="col">Производитель</th>
+                        <th scope="col">Режиссер</th>
+                        <th scope="col">Изменение</th>
+                        <th scope="col">Удаление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="film : ${films}">
+                        <td th:text="${film.name_film}"></td>
+                        <td th:text="${film.price_film}"></td>
+                        <td th:text="${film.year_film}"></td>
+                        <td th:text="${film.time_film}"></td>
+                        <td th:text="${film.rating_film}"></td>
+                        <td th:text="${film.genre != null ? film.genre.name_genre : ''}"></td>
+                        <td th:text="${film.manufacturer != null ? film.manufacturer.name_manufacturer : ''}"></td>
+                        <td th:text="${film.author != null ? film.author.name_author : ''}"></td>
+                        <td>
+                            <a th:href="@{/films/editFilm/{id}(id=${film.id_film})}" class="edit-button">Изменить</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/films/deleteFilm/{id}(id=${film.id_film})}" class="delete-button">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5 text-center">
+                <a href="/films/addFilm" class="add-button">Добавить фильм</a>
+            </p>
+            <p class="my-5 text-center">
+                <a href="/" class="back-button">Назад</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

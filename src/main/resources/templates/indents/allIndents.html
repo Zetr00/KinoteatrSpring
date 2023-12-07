@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Заказы</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .edit-button, .delete-button, .add-button, .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .edit-button {
+            background-color: #4caf50;
+        }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+        }
+
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .add-button {
+            background-color: #1a1a1a;
+        }
+
+        .add-button:hover {
+            background-color: #333;
+        }
+
+        .back-button {
+            background-color: #337ab7;
+        }
+
+        .back-button:hover {
+            background-color: #286090;
+        }
+
+        .my-5 {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${indents}">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div th:case="*" class="table-container">
+                <h2 class="my-5 text-center">Заказы</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Общая цена</th>
+                        <th>Пользователь</th>
+                        <th>Статус</th>
+                        <th>Фильмы</th>
+                        <th>Изменение</th>
+                        <th>Удаление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="indent : ${indents}">
+                        <td th:text="${indent.id_indent}"></td>
+                        <td th:text="${indent.price_indent}"></td>
+                        <td th:text="${indent.user != null ? indent.user.username : ''}"></td>
+                        <td th:text="${indent.status != null ? indent.status.name_status : ''}"></td>
+                        <td>
+                            <span th:each="film : ${indent.film}">
+                                <span th:text="${film.name_film}"></span><br>
+                            </span>
+                        </td>
+                        <td>
+                            <a th:href="@{/indents/editIndent/{id}(id=${indent.id_indent})}" class="edit-button">Изменить</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/indents/deleteIndent/{id}(id=${indent.id_indent})}" class="delete-button">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5 text-center">
+                <a href="/indents/addIndent" class="add-button">Добавить заказ</a>
+            </p>
+            <p class="my-5 text-center">
+                <a href="/indents/addFilmToIndent" class="add-button">Добавить фильм к заказу</a>
+            </p>
+            <p class="my-5 text-center">
+                <a href="/" class="back-button">Назад</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
